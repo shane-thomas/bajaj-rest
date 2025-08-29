@@ -43,6 +43,10 @@ app.post('/bfhl', (req, res) => {
                     oddNum.push(input[i])
                 }
                 sum += parseInt(input[i])
+            } else if(isChar(input[i])){
+                alphabets.push(input[i])
+            } else if(isSpecialChar(input[i])){
+                specialCharacters.push(input[i])
             }
         }
                 
