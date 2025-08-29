@@ -34,7 +34,8 @@ app.post('/bfhl', (req, res) => {
         const alphabets = []
         const specialCharacters = [];
         let sum = 0
-        
+        let concat = ""
+
         for(let i=0; i<input.length; i++){
             if(isNum(input[i])){
                 if(parseInt(input[i]) % 2 == 0){
@@ -44,9 +45,19 @@ app.post('/bfhl', (req, res) => {
                 }
                 sum += parseInt(input[i])
             } else if(isChar(input[i])){
-                alphabets.push(input[i])
+                alphabets.push(input[i].toUpperCase())
+                concat += input[i]
             } else if(isSpecialChar(input[i])){
                 specialCharacters.push(input[i])
+            }
+        }
+
+        let rev_concat = ""
+        for(let i=concat.length-1; i>=0; i--){
+            if (i%2 == 0){
+                rev_concat += concat[i].toUpperCase()
+            } else {
+                rev_concat += concat[i].toLowerCase()
             }
         }
                 
@@ -60,6 +71,7 @@ app.post('/bfhl', (req, res) => {
             alphabets,
             specialCharacters, 
             sum, 
+            rev_concat
         }
         res.status(200).json(response)
     } catch(err){
