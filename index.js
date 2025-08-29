@@ -26,8 +26,16 @@ app.get('/', (req, res) => {
 
 app.post('/bfhl', (req, res) => {
     try{
+        
+        if (!req.body || !req.body.data) {
+            return res.status(400).json({is_success:false, error: "No data found"});
+        }
         let input = req.body.data;
         console.log(input)
+        
+        if (!Array.isArray(input)) {
+            return res.status(400).json({is_success:false, error: "No array found"});
+        }
 
         let evenNum = [];
         let oddNum = [];
@@ -75,8 +83,7 @@ app.post('/bfhl', (req, res) => {
         }
         res.status(200).json(response)
     } catch(err){
-        res.status(500).json({is_success:false, error: err.message});
-        return;
+        return res.status(500).json({is_success:false, error: err.message});
     }
     
 }
